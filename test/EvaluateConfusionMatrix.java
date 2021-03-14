@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package in.ac.iitkgp.machinelearning.evaluation;
 
-import in.ac.iitkgp.machinelearning.randomwheel.utils.StringUtil;
+
+import in.ac.iitkgp.machinelearning.evaluation.ConfusionMatrix;
+import in.ac.iitkgp.machinelearning.utils.CommonUtil;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -17,7 +18,7 @@ import java.util.HashSet;
  * @author Anupam
  */
 public class EvaluateConfusionMatrix {
-    
+    /*
     public static void main(String[] args) {
         String csvSplitBy = ",";
         String csvEscapeChar = "\"";
@@ -25,7 +26,7 @@ public class EvaluateConfusionMatrix {
         
         readConfusionMatrixFromCSV(csvPath, csvSplitBy, csvEscapeChar);
     }
-    
+    */
     public static ConfusionMatrix readConfusionMatrixFromCSV(String csvFile, String csvSplitBy, String csvEscapeChar){
         String line = "";
         String[] predicted_labels = null;
@@ -37,7 +38,7 @@ public class EvaluateConfusionMatrix {
                 //skip first line
             }
             if((line = br.readLine()) != null){
-                line = StringUtil.removeEscapeCharFromString(line, csvEscapeChar, csvSplitBy);
+                line = CommonUtil.removeEscapeCharFromString(line, csvEscapeChar, csvSplitBy);
                 String[] t_headers = line.split(csvSplitBy);
                 predicted_labels = new String[t_headers.length - 1];
                 actual_labels = new String[t_headers.length - 1];
@@ -62,7 +63,7 @@ public class EvaluateConfusionMatrix {
             
             while ((line = br.readLine()) != null) {
                 Integer predicted_labels_cnt = 0;
-                line = StringUtil.removeEscapeCharFromString(line, csvEscapeChar, csvSplitBy);
+                line = CommonUtil.removeEscapeCharFromString(line, csvEscapeChar, csvSplitBy);
                 //System.out.println("line: " + line);
                 String[] t_line_arr = line.split(csvSplitBy);
                 Integer t_line_arr_cnt = 0;

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package in.ac.iitkgp.machinelearning.evaluation;
 
-import in.ac.iitkgp.machinelearning.randomwheel.utils.StringUtil;
+
+import in.ac.iitkgp.machinelearning.utils.CommonUtil;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,6 +15,7 @@ import java.io.IOException;
  * @author Anupam
  */
 public class EvaluateConfidenceMatrix {
+    /*
     public static void main(String[] args) {
         String csvSplitBy = ",";
         String csvEscapeChar = "\"";
@@ -23,7 +24,7 @@ public class EvaluateConfidenceMatrix {
         
         evaluateConfidenceMatrix(csvFile_confusion, csvPath_confidence, csvSplitBy, csvEscapeChar);
     }
-    
+    */
     public static void evaluateConfidenceMatrix(String csvFile_confusion, String csvFile_confidence, String csvSplitBy, String csvEscapeChar){
         String line = "";
         String[] predicted_labels = null;
@@ -36,7 +37,7 @@ public class EvaluateConfidenceMatrix {
                 //skip first line
             }
             if((line = br.readLine()) != null){
-                line = StringUtil.removeEscapeCharFromString(line, csvEscapeChar, csvSplitBy);
+                line = CommonUtil.removeEscapeCharFromString(line, csvEscapeChar, csvSplitBy);
                 String[] t_headers = line.split(csvSplitBy);
                 predicted_labels = new String[t_headers.length - 1];
                 actual_labels = new String[t_headers.length - 1];
@@ -62,7 +63,7 @@ public class EvaluateConfidenceMatrix {
             
             while ((line = br.readLine()) != null) {
                 Integer predicted_labels_cnt = 0;
-                line = StringUtil.removeEscapeCharFromString(line, csvEscapeChar, csvSplitBy);
+                line = CommonUtil.removeEscapeCharFromString(line, csvEscapeChar, csvSplitBy);
                 //System.out.println("line: " + line);
                 String[] t_line_arr = line.split(csvSplitBy);
                 Integer t_line_arr_cnt = 0;
@@ -89,7 +90,7 @@ public class EvaluateConfidenceMatrix {
             
             while ((line = br.readLine()) != null) {
                 Integer predicted_labels_cnt = 0;
-                line = StringUtil.removeEscapeCharFromString(line, csvEscapeChar, csvSplitBy);
+                line = CommonUtil.removeEscapeCharFromString(line, csvEscapeChar, csvSplitBy);
                 //System.out.println("line: " + line);
                 String[] t_line_arr = line.split(csvSplitBy);
                 Integer t_line_arr_cnt = 0;

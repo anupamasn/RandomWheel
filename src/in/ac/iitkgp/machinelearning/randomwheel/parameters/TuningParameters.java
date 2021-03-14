@@ -11,12 +11,12 @@ package in.ac.iitkgp.machinelearning.randomwheel.parameters;
  */
 public final class TuningParameters {
     
-    Integer noOfPass = 0;
+    Integer noOfTrial = 0;
     Integer depth = 1;
     Double noiseFraction = null;
     
-    public TuningParameters(Integer noOfPass, Integer depth, Double noiseFraction) {
-        setNoOfPass(noOfPass);
+    public TuningParameters(Integer noOfTrial, Integer depth, Double noiseFraction) {
+        setNoOfTrial(noOfTrial);
         setDepth(depth);
         setNoiseFraction(noiseFraction);
     }
@@ -33,16 +33,16 @@ public final class TuningParameters {
         return depth;
     }
 
-    public Integer getNoOfPass() {
-        return noOfPass;
+    public Integer getNoOfTrial() {
+        return noOfTrial;
     }
 
     public void setDepth(Integer depth) {
         this.depth = depth;
     }
 
-    public void setNoOfPass(Integer noOfPass) {
-        this.noOfPass = noOfPass;
+    public void setNoOfTrial(Integer noOfTrial) {
+        this.noOfTrial = noOfTrial;
     }
 
     

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package in.ac.iitkgp.machinelearning.randomwheel.utils;
+package in.ac.iitkgp.machinelearning.utils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -96,18 +96,19 @@ public class CombinationUtil {
     }
  
     /*Driver function to check for above function*/
+    /*
     public static void main (String[] args) {
-        /*String[] arr = {"1", "2", "3", "4", "5"};
-        int r = 3;
-        ArrayList<String[]> combs = getCombinationsFromAnArray(arr, r);
-        System.out.println("combs.size: " + combs.size());
-        for(int i = 0; i<combs.size(); i++){
-            String[] comb = combs.get(i);
-            for(int j=0; j<comb.length; j++){
-                System.out.print(comb[j] + " ");
-            }
-            System.out.println("");
-        }*/
+        //String[] arr = {"1", "2", "3", "4", "5"};
+        //int r = 3;
+        //ArrayList<String[]> combs = getCombinationsFromAnArray(arr, r);
+        //System.out.println("combs.size: " + combs.size());
+        //for(int i = 0; i<combs.size(); i++){
+        //    String[] comb = combs.get(i);
+        //    for(int j=0; j<comb.length; j++){
+        //        System.out.print(comb[j] + " ");
+        //    }
+        //    System.out.println("");
+        //}
         
         ArrayList a1 = new ArrayList();
         ArrayList a2 = new ArrayList();
@@ -130,5 +131,5 @@ public class CombinationUtil {
             System.out.println(lst.size());
         }
     }
-
+    */
 }
