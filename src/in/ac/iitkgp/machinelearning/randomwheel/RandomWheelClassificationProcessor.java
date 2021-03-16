@@ -288,7 +288,7 @@ public class RandomWheelClassificationProcessor {
                 }
             }
             
-            TrainingData trainingData = new TrainingData(trainSet, processedDataset.getPredictors(), tuningParameters.getDepth());
+            TrainingData trainingData = new TrainingData(trainSet, processedDataset.getPredictors());
             TestData testData = new TestData(testSet, processedDataset.getPredictors());
 
             //Training
@@ -310,7 +310,7 @@ public class RandomWheelClassificationProcessor {
         // Spliting CSV
         Object[] splitSets = processedDataset.split(splitPercent);
         
-        TrainingData trainingData = new TrainingData((ArrayList<Observation>)splitSets[0], processedDataset.getPredictors(), tuningParameters.getDepth());
+        TrainingData trainingData = new TrainingData((ArrayList<Observation>)splitSets[0], processedDataset.getPredictors());
         TestData testData = new TestData((ArrayList<Observation>)splitSets[1], processedDataset.getPredictors());
         
         //Training
@@ -332,10 +332,7 @@ public class RandomWheelClassificationProcessor {
         if(debug){
             System.out.println("");
             System.out.print("#,");
-            TreeSet<Predictor> sortedPredictors = new TreeSet<Predictor>();
             for(Predictor predictor : testData.getPredictors())
-                sortedPredictors.add(predictor);
-            for(Predictor predictor : sortedPredictors)
                 System.out.print(predictor.getPredictorName()+",");
             System.out.print("prediction,status,confidence");
             System.out.println("");

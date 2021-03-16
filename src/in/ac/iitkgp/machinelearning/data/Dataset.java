@@ -22,15 +22,15 @@ import java.util.TreeSet;
  */
 public class Dataset {
     
-    ArrayList<Predictor> predictors;
+    TreeSet<Predictor> predictors;
     ArrayList<Observation> records;
     TreeSet<String> classLabels;
 
-    public ArrayList<Predictor> getPredictors() {
+    public TreeSet<Predictor> getPredictors() {
         return predictors;
     }
 
-    private void setPredictors(ArrayList<Predictor> predictors) {
+    private void setPredictors(TreeSet<Predictor> predictors) {
         this.predictors = predictors;
     }
 
@@ -60,10 +60,10 @@ public class Dataset {
         int totalNoOfCols = 0;
         String line = "";
         String[] headers = null;
-        ArrayList<String[]> full_dataset = new ArrayList<String[]>();
+        //ArrayList<String[]> full_dataset = new ArrayList<String[]>();
         Integer classVariableIndex = 0;
         
-        ArrayList<Predictor> l_predictorList = new ArrayList<Predictor>();
+        TreeSet<Predictor> l_predictorSet = new TreeSet<Predictor>();
         ArrayList<Observation> l_records = new ArrayList<Observation>();
         TreeSet<String> l_classLabels = new TreeSet<String>();
         
@@ -105,8 +105,10 @@ public class Dataset {
             
             //builing the predictor list
             for(int i = 0; i < headers.length; i++){
-                if(i != classVariableIndex)
-                    l_predictorList.add(new Predictor(headers[i], String.class));
+                if(i != classVariableIndex){
+                    //presently allowing categorical predictors only
+                    l_predictorSet.add(new Predictor(headers[i], String.class));
+                }
             }
             
             while ((line = br.readLine()) != null) {
@@ -114,12 +116,12 @@ public class Dataset {
                 if(!(line.trim().equals(""))){
                     //getting transaction array including observed class label
                     String[] transaction = CommonUtil.prepareArray(line, discardedIndexes, dataParameters.getCsvSplitBy(), totalNoOfCols);
-                    full_dataset.add(transaction);
+                    //full_dataset.add(transaction);
                     
                     Observation observation = new Observation();
                     for(int i = 0, j = 0; i < transaction.length; i++){
                         if(i != classVariableIndex){
-                            Predictor p = l_predictorList.get(j);
+                            Predictor p = CommonUtil.getPredictorByName(l_predictorSet, headers[i]);
                             if(dataParameters.getMissingValueStrings().contains(transaction[i]))
                                 observation.addInputAttributeWithValue(p, null);
                             else if(p.getPredictorType().equals(String.class)) 
@@ -145,7 +147,7 @@ public class Dataset {
             e.printStackTrace();
         }
         
-        setPredictors(l_predictorList);
+        setPredictors(l_predictorSet);
         setRecords(l_records);
         setClassLabels(l_classLabels);
         return true;

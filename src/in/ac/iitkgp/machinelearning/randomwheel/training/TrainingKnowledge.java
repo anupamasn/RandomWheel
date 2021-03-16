@@ -5,17 +5,10 @@
  */
 package in.ac.iitkgp.machinelearning.randomwheel.training;
 
-import in.ac.iitkgp.machinelearning.data.Predictor;
 import in.ac.iitkgp.machinelearning.randomwheel.components.Factor;
 import in.ac.iitkgp.machinelearning.randomwheel.components.Key;
-import in.ac.iitkgp.machinelearning.utils.CombinationUtil;
-import in.ac.iitkgp.machinelearning.utils.CommonUtil;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -34,7 +27,7 @@ public class TrainingKnowledge {
     ArrayList<Factor> applicableFactorsSortedByImportance;
     //list of all keys
     ArrayList<Key> applicableKeys = null;
-
+    
     public TreeMap<String, Integer> getClassLabelCounts() {
         return classLabelCounts;
     }

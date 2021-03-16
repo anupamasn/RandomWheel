@@ -13,32 +13,8 @@ import java.util.TreeMap;
  */
 public class Observation extends UnknownObservation {
     
-    //TreeMap<Predictor, Object> observedInput;
     String observedOutput;
-    /*
-    public <T extends Object> boolean addInputAttributeWithValue(Predictor<T> predictor, T value) throws Exception{
-        if(value != null){
-            if(!value.getClass().equals(predictor.getPredictorType())){
-                throw new Exception("Invalid predictor value for " + predictor.getPredictorName());
-            }
-        }
-        
-        if(getObservedInput() == null)
-            setObservedInput(new TreeMap<Predictor, Object>());
-        getObservedInput().put(predictor, value);
-        
-        return true;
-    }
-
-    public TreeMap<Predictor, Object> getObservedInput() {
-        return observedInput;
-    }
-
-    private void setObservedInput(TreeMap<Predictor, Object> observedInput) {
-        this.observedInput = observedInput;
-    }
-    */
-
+    
     public Observation(TreeMap<Predictor, Object> observedInput, String observedOutput) {
         super(observedInput);
         this.observedOutput = observedOutput;

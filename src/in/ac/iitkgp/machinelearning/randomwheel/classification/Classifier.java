@@ -10,7 +10,6 @@ import in.ac.iitkgp.machinelearning.data.Observation;
 import in.ac.iitkgp.machinelearning.data.Predictor;
 import in.ac.iitkgp.machinelearning.data.UnknownObservation;
 import in.ac.iitkgp.machinelearning.randomwheel.components.Factor;
-import in.ac.iitkgp.machinelearning.randomwheel.components.Force;
 import in.ac.iitkgp.machinelearning.randomwheel.components.Key;
 import in.ac.iitkgp.machinelearning.randomwheel.components.Trial;
 import in.ac.iitkgp.machinelearning.randomwheel.components.Wheel;
@@ -20,10 +19,6 @@ import in.ac.iitkgp.machinelearning.randomwheel.training.TrainingKnowledge;
 import in.ac.iitkgp.machinelearning.utils.StatUtil;
 import in.ac.iitkgp.machinelearning.utils.CommonUtil;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -75,7 +70,7 @@ public class Classifier {
         ArrayList<Factor> applicableFactors = CommonUtil.getAllApplicableFactors(trainingData.getPredictors(), getTp().getDepth());
         
         //retriving the applicable keys
-        ArrayList<Key> applicableKeys = CommonUtil.getAllApplicableKeys(applicableFactors, trainingData.getAllPredictorValues());
+        ArrayList<Key> applicableKeys = CommonUtil.getAllApplicableKeys(applicableFactors);
         
         //measuring the class label counts for onward calculation of probabilities 
         ArrayList<Observation> trainSet = trainingData.getDataset();
@@ -89,9 +84,7 @@ public class Classifier {
         trainingKnowledge.setSizeOfTrainingDataset(trainSet.size());
         
         //measuing and updating the factor importance, sorting them and updating the knowledge
-        TreeMap<Factor, Double> factorImportanceMap = StatUtil.measureFactorImportance(
-                applicableFactors, trainingData.getAllPredictorValues(), 
-                classLabelCountForKeys, classLabelCounts);
+        TreeMap<Factor, Double> factorImportanceMap = StatUtil.measureFactorImportance(applicableFactors, classLabelCountForKeys, classLabelCounts);
         for(Map.Entry<Factor, Double> entry : factorImportanceMap.entrySet()){
             entry.getKey().setImportance(entry.getValue());
         }
@@ -105,7 +98,7 @@ public class Classifier {
         return trainingKnowledge;
     }
     
-    public Prediction classify(UnknownObservation uobs, ArrayList<Predictor> predictors, TreeSet<String> classLabels, TrainingKnowledge trainingKnowledge){
+    public Prediction classify(UnknownObservation uobs, TreeSet<Predictor> predictors, TreeSet<String> classLabels, TrainingKnowledge trainingKnowledge){
         ArrayList<TreeMap<String, Wheel>> wheelsInTrials = new ArrayList<TreeMap<String, Wheel>>();
         
         //=============== Executing the trials in separate threads and accumulating the wheelsInTrials ==============================

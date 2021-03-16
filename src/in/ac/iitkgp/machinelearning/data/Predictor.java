@@ -6,6 +6,7 @@
 package in.ac.iitkgp.machinelearning.data;
 
 import java.util.Objects;
+import java.util.TreeSet;
 
 /**
  *
@@ -15,7 +16,8 @@ public class Predictor<T> implements Comparable {
     
     String predictorName;
     Class<T> predictorType;
-
+    TreeSet<T> allPredictorValues;
+    
     public Predictor(String predictorName, Class<T> predictorType) {
         this.predictorName = predictorName;
         this.predictorType = predictorType;
@@ -29,12 +31,27 @@ public class Predictor<T> implements Comparable {
         this.predictorName = predictorName;
     }
 
+    public TreeSet<T> getAllPredictorValues() {
+        return allPredictorValues;
+    }
+
+    public void setAllPredictorValues(TreeSet<T> allPredictorValues) {
+        this.allPredictorValues = allPredictorValues;
+    }
+    
     public Class<T> getPredictorType() {
         return predictorType;
     }
 
     public void setPredictorType(Class<T> predictorType) {
         this.predictorType = predictorType;
+    }
+    
+    public void addNewPredictorValue(T obj){
+        if(getAllPredictorValues() == null)
+            setAllPredictorValues(new TreeSet<T>());
+        if(obj != null)
+            getAllPredictorValues().add(obj);
     }
 
     @Override
@@ -62,6 +79,11 @@ public class Predictor<T> implements Comparable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Predictor{" + "predictorName=" + predictorName + '}';
+    }
+    
     @Override
     public int compareTo(Object o) {
         Predictor other = (Predictor) o;

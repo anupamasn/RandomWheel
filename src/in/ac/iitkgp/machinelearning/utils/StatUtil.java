@@ -9,18 +9,8 @@ import in.ac.iitkgp.machinelearning.data.Observation;
 import in.ac.iitkgp.machinelearning.data.Predictor;
 import in.ac.iitkgp.machinelearning.randomwheel.components.Factor;
 import in.ac.iitkgp.machinelearning.randomwheel.components.Key;
-import in.ac.iitkgp.machinelearning.randomwheel.training.TrainingData;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -34,7 +24,7 @@ public class StatUtil {
             ArrayList<Key> keyList
             , TreeSet<String> classLabels
             , ArrayList<Observation> trainSet
-            , ArrayList<Predictor> predictors
+            , TreeSet<Predictor> predictors
             , int depth){
         TreeMap<Key, TreeMap<String, Integer>> classLabelCountsForKeys = new TreeMap<Key, TreeMap<String, Integer>>();
         //initialising to all zero element array
@@ -86,7 +76,6 @@ public class StatUtil {
     
     public static TreeMap<Factor, Double> measureFactorImportance(
               ArrayList<Factor> allApplicableFactors
-            , TreeMap<String, TreeSet<Object>> allPredictorValues
             , TreeMap<Key, TreeMap<String, Integer>> classLabelCountForAllKeys
             , TreeMap<String, Integer> classLabelCounts){
         
@@ -100,7 +89,7 @@ public class StatUtil {
         //System.out.println("classGiniCoeff: " + classGiniCoeff);
         
         for(Factor factor : allApplicableFactors){
-            ArrayList<Key> allApplicableKeysOfTheFactor = CommonUtil.getApplicableKeysFromAFactor(factor, allPredictorValues);
+            ArrayList<Key> allApplicableKeysOfTheFactor = CommonUtil.getApplicableKeysFromAFactor(factor);
             ArrayList<Integer[]> classLabelCountArrOfTheFactor = new ArrayList<Integer[]>();
             for(Key p_key : allApplicableKeysOfTheFactor){
                 TreeMap<String, Integer> p_distmap = classLabelCountForAllKeys.get(p_key);

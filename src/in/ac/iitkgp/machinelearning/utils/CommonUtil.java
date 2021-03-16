@@ -5,7 +5,6 @@
  */
 package in.ac.iitkgp.machinelearning.utils;
 
-import in.ac.iitkgp.machinelearning.data.Observation;
 import in.ac.iitkgp.machinelearning.data.Predictor;
 import in.ac.iitkgp.machinelearning.data.UnknownObservation;
 import in.ac.iitkgp.machinelearning.randomwheel.components.Factor;
@@ -53,7 +52,7 @@ public class CommonUtil {
         return arr;
     }
     
-    public static ArrayList<Factor> getAllApplicableFactors(ArrayList<Predictor> predictors, int depth){
+    public static ArrayList<Factor> getAllApplicableFactors(TreeSet<Predictor> predictors, int depth){
         if(depth > (predictors.size())){
             System.out.println("Invalid depth!!!");
             return null;
@@ -63,9 +62,9 @@ public class CommonUtil {
         String[] attHeaders = new String[predictors.size()];
         //making a attribute header list after discarding class
         int ahIndex = 0;
-        for(int i=0; i<predictors.size(); i++)
+        for(Predictor predictor : predictors)
         {
-            attHeaders[ahIndex] = predictors.get(i).getPredictorName();
+            attHeaders[ahIndex] = predictor.getPredictorName();
             ahIndex++;
         }
         
@@ -89,25 +88,25 @@ public class CommonUtil {
         return factors;
     }
     
-    public static ArrayList<Key> getAllApplicableKeys(ArrayList<Factor> factors, TreeMap<String, TreeSet<Object>> allPredictorValues)
+    public static ArrayList<Key> getAllApplicableKeys(ArrayList<Factor> factors)
     {
         ArrayList allKeyList = new ArrayList<Key>();
         
         for(int i = 0; i < factors.size(); i++){
             Factor p_factor = factors.get(i);
-            ArrayList<Key> applicableKeysForAFactor = CommonUtil.getApplicableKeysFromAFactor(p_factor, allPredictorValues);
+            ArrayList<Key> applicableKeysForAFactor = CommonUtil.getApplicableKeysFromAFactor(p_factor);
             allKeyList.addAll(applicableKeysForAFactor);
         }
         
         return allKeyList;
     }
     
-    public static ArrayList<Key> getApplicableKeysFromAnObservation(ArrayList<Predictor> predictors, TreeMap<Predictor, Object> observedInput, int depth){
+    public static ArrayList<Key> getApplicableKeysFromAnObservation(TreeSet<Predictor> predictors, TreeMap<Predictor, Object> observedInput, int depth){
         //getting array with elements as header:value
         ArrayList<String> transactionAsAL = new ArrayList<String>();
-        for(int j = 0; j < predictors.size(); j++){
-            if(observedInput.get(predictors.get(j)) != null){
-                transactionAsAL.add((predictors.get(j).getPredictorName() + ":" + (String)observedInput.get(predictors.get(j))));
+        for(Predictor predictor : predictors){
+            if(observedInput.get(predictor) != null){
+                transactionAsAL.add((predictor.getPredictorName() + ":" + (String)observedInput.get(predictor)));
             }
         }
         String[] transactionAsArray = new String[transactionAsAL.size()];
@@ -140,22 +139,20 @@ public class CommonUtil {
         return keyList;
     }
     
-    public static ArrayList<Key> getApplicableKeysFromAFactor(Factor factor, TreeMap<String, TreeSet<Object>> allPredictorValues)
+    public static ArrayList<Key> getApplicableKeysFromAFactor(Factor factor)
     {
         ArrayList<Key> keyList = new ArrayList<Key>();
         
-        ArrayList<Predictor> predictorList = new ArrayList<Predictor>();
         String[] attrComb = new String[factor.getPredictors().size()];
         int index = 0;
         for(Predictor p : factor.getPredictors()){
             attrComb[index++] = p.getPredictorName();
-            predictorList.add(p);
         }
         
         List<List<String>> p_valComb = new ArrayList<List<String>>();
         //for each attribute in a combination
         for(int j=0; j < attrComb.length; j++){
-            TreeSet<Object> possibleValues = allPredictorValues.get(attrComb[j]);
+            TreeSet<Object> possibleValues = CommonUtil.getPredictorByName(factor.getPredictors(), attrComb[j]).getAllPredictorValues();
             ArrayList<String> valList = new ArrayList<String>();
             //for each values of the attribute
             for(Object obj : possibleValues)
@@ -168,7 +165,7 @@ public class CommonUtil {
             Object[] p_val = ((ArrayList)valCombIt.next()).toArray();
             TreeSet<KeyItem> key = new TreeSet<KeyItem>();
             for(int k = 0; k < p_val.length; k++){
-                KeyItem keyItem = new KeyItem(CommonUtil.getPredictorByName(predictorList, attrComb[k]), p_val[k]);
+                KeyItem keyItem = new KeyItem(CommonUtil.getPredictorByName(factor.getPredictors(), attrComb[k]), p_val[k]);
                 key.add(keyItem);
             }
             Key keyObj = new Key(key);
@@ -272,10 +269,10 @@ public class CommonUtil {
         return random;
     }
     
-    private static Predictor getPredictorByName(ArrayList<Predictor> predictors, String p_predictorName){
-        for(int i = 0; i < predictors.size(); i++){
-            if(predictors.get(i).getPredictorName().equals(p_predictorName))
-                return predictors.get(i);
+    public static Predictor getPredictorByName(TreeSet<Predictor> predictors, String p_predictorName){
+        for(Predictor p_predictor : predictors){
+            if(p_predictor.getPredictorName().equals(p_predictorName))
+                return p_predictor;
         }
         return null;
     }

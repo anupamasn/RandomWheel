@@ -9,6 +9,7 @@ import in.ac.iitkgp.machinelearning.data.Observation;
 import in.ac.iitkgp.machinelearning.data.Predictor;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.TreeSet;
 
 /**
  *
@@ -16,19 +17,19 @@ import java.util.HashSet;
  */
 public class TestData {
     
-    ArrayList<Predictor> predictors = null;
+    TreeSet<Predictor> predictors = null;
     ArrayList<Observation> dataset = null;
 
-    public TestData(ArrayList<Observation> testDataset, ArrayList<Predictor> predictors) {
+    public TestData(ArrayList<Observation> testDataset, TreeSet<Predictor> predictors) {
         setDataset(testDataset);
         setPredictors(predictors);
     }
 
-    public ArrayList<Predictor> getPredictors() {
+    public TreeSet<Predictor> getPredictors() {
         return predictors;
     }
 
-    public void setPredictors(ArrayList<Predictor> predictors) {
+    public void setPredictors(TreeSet<Predictor> predictors) {
         this.predictors = predictors;
     }
 
