@@ -50,39 +50,14 @@ public class Wheel implements Comparable {
     }
     
     public void rotate(ArrayList<Key> keys, TrainingKnowledge trainingKnowledge){
-        Force force = new Force();
-        force.apply(keys, getClassLabel(), trainingKnowledge);
+        Force resultantForce = new Force();
+        resultantForce.apply(keys, getClassLabel(), trainingKnowledge);
+        setForce(resultantForce);
         
-        setForce(force);
-        Double p_angularVelocity = force.getMagnitude();   // assuming velocity = force
+        Double p_angularVelocity = resultantForce.getMagnitude();   // assuming velocity = force
         setAngularVelocity(p_angularVelocity);
     }
-    /*
-    private ElementaryForce getElementaryForce(Key key, TrainingKnowledge trainingKnowledge){
-        try{
-            Integer noOfClassLabelForTheKey = trainingKnowledge.getClassLabelCountForKeys().get(key).get(getClassLabel());
-            Integer noOfTotalObservationForTheKey = StatUtil.getSum((trainingKnowledge.getClassLabelCountForKeys().get(key)));
-            Integer noOfTotalClassLabelObserved = trainingKnowledge.getClassLabelCounts().get(getClassLabel());
-            Integer sizeOfTrainingDataset = trainingKnowledge.getSizeOfTrainingDataset();
-            
-            //x is the key here whreas y is the class value
-            Double support_xy = ((double)noOfClassLabelForTheKey / (double)sizeOfTrainingDataset);
-            Double support_x = ((double)noOfTotalObservationForTheKey / (double)sizeOfTrainingDataset);
-            Double support_y = ((double)noOfTotalClassLabelObserved/(double)sizeOfTrainingDataset);
-            
-            Double magnitude = (support_xy/(support_x * support_y));
-            
-            if(magnitude.isNaN())
-                magnitude = 0.0;
-            
-            ElementaryForce elForce = new ElementaryForce(key, magnitude);
-            
-            return elForce;
-        }catch(Exception ex){
-            return new ElementaryForce(key, 0.0);
-        }
-    }
-    */
+    
     @Override
     public String toString() {
         return "Wheel{" + "classLabel=" + classLabel + '}';

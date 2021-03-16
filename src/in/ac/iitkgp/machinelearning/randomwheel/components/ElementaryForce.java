@@ -22,7 +22,7 @@ public class ElementaryForce {
         this.key = key;
     }
     
-    public void apply(String classLabel, TrainingKnowledge trainingKnowledge){
+    public void measure(String classLabel, TrainingKnowledge trainingKnowledge){
         try{
             Integer noOfClassLabelForTheKey = trainingKnowledge.getClassLabelCountForKeys().get(key).get(classLabel);
             Integer noOfTotalObservationForTheKey = StatUtil.getSum((trainingKnowledge.getClassLabelCountForKeys().get(key)));
@@ -43,7 +43,6 @@ public class ElementaryForce {
         }catch(Exception ex){
             setMagnituge(0.0);
         }
-        //return getMagnituge();
     }
     
     public Key getKey() {

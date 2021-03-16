@@ -43,7 +43,7 @@ public class Force {
         for(Key key : keys){
             try{
                 ElementaryForce elForce = new ElementaryForce(key);
-                elForce.apply(classLabel, trainingKnowledge);
+                elForce.measure(classLabel, trainingKnowledge);
                 elementaryForces.add(elForce);
             }catch(Exception ex){
                 ex.printStackTrace();
