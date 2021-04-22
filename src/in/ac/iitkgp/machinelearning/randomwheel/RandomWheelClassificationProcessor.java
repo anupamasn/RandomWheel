@@ -69,7 +69,7 @@ public class RandomWheelClassificationProcessor {
         // getting the CSV file from user
         while(true){
             try{
-                System.out.print("Please enter path of the CSV file containing the dataset (first header row should include the predictor attribute/class variable name, data should be column separated and escaped by double quote, and missing value should be blank or ?): ");
+                System.out.print("Please enter path of the CSV file containing the dataset (first header row should include the predictor attribute/class variable name, data should be comma separated and escaped by double quote, and missing value should be blank or ?): ");
                 csvFilePath = reader.readLine();
                 try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
                     String line = br.readLine();
