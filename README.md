@@ -1,7 +1,7 @@
 # RandomWheel
 The random wheel (Khan et al. 2021) classifies an observation based on the principle of wheel rotation. The present version (v1.0) of the random wheel supports only categorical attributes as input. 
 
-Please prepare the dataset in csv format to test classification with random wheel. Presently it supports testing with splitting the dataset and k-fold cross validation. Once executed, it will take following inputs:
+Please prepare the dataset in csv format to test classification with random wheel. Presently it supports testing with splitting the dataset and k-fold cross validation. It takes the following inputs:
 
 (1) CSV file path: The first header row should include the predictor attribute/class variable name. The data should be comma separated, escaped by double quote, and missing value should be blank or ?
 
