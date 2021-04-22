@@ -19,7 +19,7 @@ Please prepare the dataset in csv format to test classification with random whee
 
 (8) Trials: The number of trials
 
-(9) Print mode: 1 if all predictions to be printed, 0 otherwise.
+(9) Print mode: 1 if all classifications to be printed, 0 otherwise.
 
 Please cite the following article:
 
